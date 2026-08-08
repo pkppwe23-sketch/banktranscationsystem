@@ -1,0 +1,279 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════
+   THEME TOKENS — CSS Custom Properties
+   Dark mode is default; .light class overrides.
+   ═══════════════════════════════════════════════════ */
+
+:root {
+  --bg-body:      #09090b;
+  --bg-surface:   #121215;
+  --bg-elevated:  #18181b;
+  --bg-input:     #09090b;
+  --bg-hover:     #1e1e22;
+  --bg-inset:     #0c0c0e;
+  --bg-overlay:   rgba(0, 0, 0, 0.75);
+
+  --text-primary:   #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-muted:     #71717a;
+  --text-inverted:  #09090b;
+
+  --border:       #27272a;
+  --border-hover: #3f3f46;
+  --ring:         #6366f1;
+
+  --accent:       #6366f1;
+  --accent-soft:  rgba(99, 102, 241, 0.12);
+  --success:      #10b981;
+  --success-soft: rgba(16, 185, 129, 0.12);
+  --danger:       #f43f5e;
+  --danger-soft:  rgba(244, 63, 94, 0.12);
+  --warning:      #f59e0b;
+  --warning-soft: rgba(245, 158, 11, 0.12);
+
+  --btn-primary-bg: #ffffff;
+  --btn-primary-text: #09090b;
+  --btn-primary-hover: #e4e4e7;
+  --btn-secondary-bg: #18181b;
+  --btn-secondary-text: #d4d4d8;
+  --btn-secondary-hover: #27272a;
+
+  --nav-bg: rgba(9, 9, 11, 0.92);
+  --sidebar-bg: #09090b;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  --modal-shadow: 0 25px 50px rgba(0,0,0,0.5);
+}
+
+:root.light {
+  --bg-body:      #f8f9fb;
+  --bg-surface:   #ffffff;
+  --bg-elevated:  #ffffff;
+  --bg-input:     #f4f4f5;
+  --bg-hover:     #f0f0f2;
+  --bg-inset:     #f4f4f5;
+  --bg-overlay:   rgba(0, 0, 0, 0.45);
+
+  --text-primary:   #09090b;
+  --text-secondary: #52525b;
+  --text-muted:     #a1a1aa;
+  --text-inverted:  #f4f4f5;
+
+  --border:       #e4e4e7;
+  --border-hover: #d4d4d8;
+  --ring:         #6366f1;
+
+  --accent:       #6366f1;
+  --accent-soft:  rgba(99, 102, 241, 0.08);
+  --success:      #059669;
+  --success-soft: rgba(5, 150, 105, 0.08);
+  --danger:       #e11d48;
+  --danger-soft:  rgba(225, 29, 72, 0.08);
+  --warning:      #d97706;
+  --warning-soft: rgba(217, 119, 6, 0.08);
+
+  --btn-primary-bg: #09090b;
+  --btn-primary-text: #f4f4f5;
+  --btn-primary-hover: #27272a;
+  --btn-secondary-bg: #f4f4f5;
+  --btn-secondary-text: #3f3f46;
+  --btn-secondary-hover: #e4e4e7;
+
+  --nav-bg: rgba(255, 255, 255, 0.92);
+  --sidebar-bg: #ffffff;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --modal-shadow: 0 25px 50px rgba(0,0,0,0.12);
+}
+
+/* ═══════════════════════════════════════════════════
+   BASE STYLES
+   ═══════════════════════════════════════════════════ */
+
+@layer base {
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ═══════════════════════════════════════════════════
+   SEMANTIC THEME CLASSES
+   These auto-switch between dark & light mode.
+   ═══════════════════════════════════════════════════ */
+
+/* Backgrounds */
+.t-bg           { background-color: var(--bg-body); }
+.t-surface      { background-color: var(--bg-surface); }
+.t-elevated     { background-color: var(--bg-elevated); }
+.t-input        { background-color: var(--bg-input); }
+.t-hover:hover  { background-color: var(--bg-hover); }
+.t-inset        { background-color: var(--bg-inset); }
+
+/* Text */
+.t-text         { color: var(--text-primary); }
+.t-text-2       { color: var(--text-secondary); }
+.t-text-3       { color: var(--text-muted); }
+.t-text-inv     { color: var(--text-inverted); }
+
+/* Borders */
+.t-border       { border-color: var(--border); }
+.t-border-hover:hover { border-color: var(--border-hover); }
+
+/* Card Surface — combines bg + border + shadow + radius */
+.t-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  box-shadow: var(--card-shadow);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.t-card-hover {
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.t-card-hover:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--border-hover);
+}
+
+/* Navbar */
+.t-nav {
+  background-color: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Sidebar */
+.t-sidebar {
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+}
+
+/* Buttons */
+.t-btn-primary {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  transition: background-color 0.15s ease;
+}
+.t-btn-primary:hover {
+  background-color: var(--btn-primary-hover);
+}
+
+.t-btn-secondary {
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border: 1px solid var(--border);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.t-btn-secondary:hover {
+  background-color: var(--btn-secondary-hover);
+  border-color: var(--border-hover);
+}
+
+/* Inputs */
+.t-input-field {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.t-input-field::placeholder {
+  color: var(--text-muted);
+}
+.t-input-field:focus {
+  border-color: var(--border-hover);
+  outline: none;
+}
+
+/* Badges */
+.t-badge {
+  background-color: var(--bg-inset);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+/* Modal Overlay */
+.t-overlay {
+  background-color: var(--bg-overlay);
+  backdrop-filter: blur(4px);
+}
+
+.t-modal {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--modal-shadow);
+}
+
+/* Accent Badges */
+.t-accent-badge {
+  background-color: var(--accent-soft);
+  color: var(--accent);
+}
+.t-success-badge {
+  background-color: var(--success-soft);
+  color: var(--success);
+}
+.t-danger-badge {
+  background-color: var(--danger-soft);
+  color: var(--danger);
+}
+
+/* Accent Text */
+.t-accent  { color: var(--accent); }
+.t-success { color: var(--success); }
+.t-danger  { color: var(--danger); }
+.t-warning { color: var(--warning); }
+
+/* Divider */
+.t-divider {
+  border-color: var(--border);
+}
+
+/* Active Nav Item */
+.t-nav-active {
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  font-weight: 600;
+}
+
+.t-nav-item {
+  color: var(--text-secondary);
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+.t-nav-item:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-hover);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-body);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--accent-soft);
+  color: var(--text-primary);
+}
